@@ -1,19 +1,22 @@
 <div class="list-container">
   <div class="search-container">
     <div class="search-bar">
-      <input type="text" placeholder="Search by gif title" />
-      <div class="search-icon">
+      <input
+        type="text"
+        placeholder="Search by gif title"
+        [(ngModel)]="searchtext"
+      />
+      <div class="search-icon" (click)="searchGif()">
         <img src="../../../assets/images/icons8-search.svg" alt="" />
       </div>
     </div>
   </div>
   <h2 class="list-heading">Trending GIFs</h2>
   <div class="gif-list">
-    <div class="gif-image">
-      <img
-        src="https://images.unsplash.com/photo-1647956820919-98711ee07ec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80.jpg"
-        alt=""
-      />
-    </div>
+    <ng-container *ngFor="let url of gifList">
+      <div class="gif-image">
+        <img [src]="url" alt="" />
+      </div>
+    </ng-container>
   </div>
 </div>
