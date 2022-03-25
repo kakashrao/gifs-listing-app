@@ -9,6 +9,9 @@ import { GifsService } from '../gifs.service';
 export class ListGifsComponent implements OnInit {
   gifList: String[] = [];
   searchtext: string = '';
+  pageNo: number = 0;
+  currentPage: number = 1;
+  loader: boolean = false;
 
   constructor(private _gifService: GifsService) {}
 
@@ -17,19 +20,86 @@ export class ListGifsComponent implements OnInit {
   }
 
   getGifLists() {
-    this._gifService.getGifList().subscribe((res: any) => {
-      this.gifList = res.data.map((element: any) => {
-        return element.images.downsized.url;
-      });
-      console.log(this.gifList);
-    });
+    this.loader = true;
+    this._gifService.getGifList(this.pageNo).subscribe(
+      (res: any) => {
+        this.gifList = res.data.map((element: any) => {
+          return element.images.downsized.url;
+        });
+        this.loader = false;
+        if (this.gifList.length === 0) {
+          alert('No more data found, taking you to the previous page');
+          this.pageNo = this.pageNo - 10;
+          this.currentPage--;
+          this.getGifLists();
+        }
+        //console.log(this.gifList);
+      },
+      (err) => {
+        this.loader = false;
+        alert(err.error.message);
+      }
+    );
   }
 
   searchGif() {
-    this._gifService.searchGifByTitle(this.searchtext).subscribe((res: any) => {
-      this.gifList = res.data.map((element: any) => {
-        return element.images.downsized.url;
-      });
-    });
+    this.loader = true;
+    if (this.searchtext) {
+      this._gifService.searchGifByTitle(this.searchtext, this.pageNo).subscribe(
+        (res: any) => {
+          this.gifList = res.data.map((element: any) => {
+            return element.images.downsized.url;
+          });
+          this.loader = false;
+          if (this.gifList.length === 0) {
+            alert('No more data found, taking you to the previous page');
+            this.pageNo = this.pageNo - 10;
+            this.currentPage--;
+            this.searchGif();
+          }
+        },
+        (err) => {
+          this.loader = false;
+          alert(err.error.message);
+        }
+      );
+    } else {
+      this.pageNo = 0;
+      this.getGifLists();
+    }
+  }
+
+  goPrev() {
+    if (this.pageNo > 0) {
+      this.pageNo = this.pageNo - 10;
+    }
+
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+
+    if (this.currentPage > 1) {
+      if (this.searchtext) {
+        this.searchGif();
+      } else {
+        this.getGifLists();
+      }
+    }
+  }
+
+  goNext() {
+    this.pageNo = this.pageNo + 10;
+    this.currentPage++;
+    if (this.searchtext) {
+      this.searchGif();
+    } else {
+      this.getGifLists();
+    }
+  }
+
+  closeSearch() {
+    this.pageNo = 0;
+    this.currentPage = 1;
+    this.getGifLists();
   }
 }
