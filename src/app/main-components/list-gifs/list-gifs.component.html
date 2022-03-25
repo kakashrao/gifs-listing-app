@@ -1,35 +1,39 @@
 <ng-container *ngIf="!loader; else loading">
-  <div class="list-container">
-    <div class="search-container">
-      <div class="search-bar">
-        <input
-          type="text"
-          placeholder="Search by gif title"
-          [(ngModel)]="searchtext"
+  <div class="search-container">
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search by gif title"
+        [(ngModel)]="searchtext"
+      />
+      <div class="search-icon" (click)="searchBtnGif()">
+        <img
+          src="../../../assets/images/close.svg"
+          alt=""
+          class="close-icon"
+          *ngIf="searchtext"
+          (click)="closeSearch()"
         />
-        <div class="search-icon" (click)="searchGif()">
-          <img
-            src="../../../assets/images/close.svg"
-            alt=""
-            class="close-icon"
-            *ngIf="searchtext"
-            (click)="closeSearch()"
-          />
-          <img src="../../../assets/images/icons8-search.svg" alt="" />
-        </div>
+        <img src="../../../assets/images/icons8-search.svg" alt="" />
       </div>
     </div>
+  </div>
+  <div class="list-container">
     <h2 class="list-heading">Trending GIFs</h2>
     <div class="gif-list">
-      <ng-container *ngFor="let url of gifList">
+      <ng-container *ngFor="let gif of gifList">
         <div class="gif-image">
-          <img [src]="url" alt="" />
+          <img [src]="gif.image" alt="" />
+          <p class="gif-title" *ngIf="gif.profileImg || gif.userName">
+            <img [src]="gif.profileImg" alt="" class="profile" />
+            {{ gif.userName }}
+          </p>
         </div>
       </ng-container>
     </div>
     <div class="action-btns">
       <span class="current-page">{{ "< " + currentPage + " >" }}</span>
-      <button (click)="goPrev()">Prev</button>
+      <button (click)="goPrev()" [disabled]="currentPage === 1">Prev</button>
       <button (click)="goNext()">Next</button>
     </div>
   </div>

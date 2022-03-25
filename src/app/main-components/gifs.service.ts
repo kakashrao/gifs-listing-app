@@ -15,7 +15,7 @@ export class GifsService {
 
   searchGifByTitle(query: string, pageNo: number) {
     return this.http.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${'O4KQmzcKAiT0U8qGnpsHmQ0wX1QtKaN5'}&q=${query}&limit=${10}`
+      `https://api.giphy.com/v1/gifs/search?api_key=${'O4KQmzcKAiT0U8qGnpsHmQ0wX1QtKaN5'}&q=${query}&limit=${10}&offset=${pageNo}`
     );
   }
 }
