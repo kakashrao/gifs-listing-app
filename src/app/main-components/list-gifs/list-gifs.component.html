@@ -6,7 +6,7 @@
         placeholder="Search by gif title"
         [(ngModel)]="searchtext"
       />
-      <div class="search-icon" (click)="searchBtnGif()">
+      <div class="search-icon">
         <img
           src="../../../assets/images/close.svg"
           alt=""
@@ -14,7 +14,11 @@
           *ngIf="searchtext"
           (click)="closeSearch()"
         />
-        <img src="../../../assets/images/icons8-search.svg" alt="" />
+        <img
+          src="../../../assets/images/icons8-search.svg"
+          alt=""
+          (click)="searchBtnGif()"
+        />
       </div>
     </div>
   </div>

@@ -24,6 +24,9 @@
 
     .search-icon {
       cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
 
       .close-icon {
         margin-right: 10px;
@@ -119,4 +122,54 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .gif-image {
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .gif-image {
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .loader {
+    img {
+      width: 400px;
+      height: 400px;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .gif-image {
+    img {
+      width: 130px;
+      height: 130px;
+    }
+  }
+
+  .loader {
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .gif-image {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
 }
