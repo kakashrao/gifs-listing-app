@@ -32,7 +32,7 @@ export class ListGifsComponent implements OnInit {
         this.gifList = res.data.map((element: any) => {
           return {
             image: element.images.downsized.url,
-            userName: element.username,
+            userName: element.username ? element.username : '',
             profileImg: element.user ? element.user.avatar_url : null,
           };
         });
@@ -65,8 +65,8 @@ export class ListGifsComponent implements OnInit {
           this.gifList = res.data.map((element: any) => {
             return {
               image: element.images.downsized.url,
-              userName: element.username,
-              profileImg: element.user.avatar_url || null,
+              userName: element.username ? element.username : '',
+              profileImg: element.user ? element.user.avatar_url : null,
             };
           });
           this.loader = false;
