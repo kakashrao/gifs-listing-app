@@ -28,7 +28,7 @@
       <ng-container *ngFor="let gif of gifList">
         <div class="gif-image">
           <img [src]="gif.image" alt="" />
-          <p class="gif-title" *ngIf="gif.profileImg || gif.userName">
+          <p class="gif-title" *ngIf="gif.profileImg && gif.userName">
             <img [src]="gif.profileImg" alt="" class="profile" />
             {{ gif.userName }}
           </p>
